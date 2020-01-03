@@ -1,0 +1,14 @@
+{
+    "jobslist":[
+        {
+            "id": 1,
+            "name": "TestJob",
+            "description": "XYZ"
+        },
+        {
+            "id": 2,
+            "name": "BackupJob",
+            "description": "ABC"
+        }
+    ]
+}
