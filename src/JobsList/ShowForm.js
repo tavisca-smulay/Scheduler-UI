@@ -16,7 +16,7 @@ function ShowForm(props) {
                 <h4>Fill in the required details for scheduling the job</h4>
             </Modal.Header>
             <Modal.Body>
-                <SchedulerForm jobName={props.name}/>
+                <SchedulerForm jobName={props.name} />
             </Modal.Body>
             <Modal.Footer>
                 <Button className="button" onClick={props.onHide}>Close</Button>

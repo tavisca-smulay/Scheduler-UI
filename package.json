@@ -9,6 +9,7 @@
     "bootstrap": "^4.4.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
+    "react-cron-generator": "^1.1.5",
     "react-dom": "^16.12.0",
     "react-hook-form": "^4.4.2",
     "react-scripts": "3.3.0"
