@@ -1,43 +1,43 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
-import jobsdata from '../../src/jobsdata';
+import jobsData from '../jobsdata';
+import ShowForm from './ShowForm';
 import './JobsTable.css';
-import ShowForm from './ShowForm'
-const Jobs = jobsdata.jobslist;
+
+const Jobs = jobsData.jobslist;
 const headers = ["JOBNAME", "DESCRIPTION", ""];
-
-
 
 function JobsTable() {
     const [modalShow, setModalShow] = React.useState(false);
+    const [jobName, setJobName] = React.useState("");
+
     return (
         <div className="table">
             <Table bordered responsive>
-                <thead>
-                    <tr>
-                        {headers.map((header, index) => {
-                            return <th className="header" key={index}>{header.toUpperCase()}</th>
-                        })}
-                    </tr>
-                </thead>
                 <tbody>
-                    {Jobs.map((job, index) => {
-                        return (
-                            <div>
+                    <tr>
+                        {
+                            headers.map((header, index) => {
+                                return <th className="header" key={index}>{header.toUpperCase()}</th>
+                            })
+                        }
+                    </tr>
+                    {
+                        Jobs.map((job, index) => {
+                            return (
                                 <tr key={job.id}>
                                     <td>{job.name}</td>
                                     <td>{job.description}</td>
-                                    <td><Button variant="primary" onClick={() => setModalShow(true)}>Schedule</Button></td>
+                                    <td><Button className="button" onClick={() => { setModalShow(true); setJobName(job.name); }}>Schedule</Button></td>
                                 </tr>
-                                <ShowForm name={job.name}
-                                    show={modalShow}
-                                    onHide={() => setModalShow(false)}
-                                />
-                            </div>
-                        )
-                    })}
+                            )
+                        })
+                    }
                 </tbody>
             </Table>
+            <ShowForm name={jobName}
+                show={modalShow}
+                onHide={() => setModalShow(false)} />
         </div>
     );
 }

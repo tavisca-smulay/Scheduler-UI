@@ -1,7 +1,12 @@
-/* .header{
+.header{
     background-color: lightseagreen;
 }
 
 .table{
-    padding: 20px;
-} */
+    padding: 50px;
+} 
+
+.button{
+    background-color: lightseagreen;
+    color: black;
+}
