@@ -1,0 +1,22 @@
+{
+    "scheduleJobs":[
+        {
+            "id": 1,
+            "jobName" : "TestJob",
+            "jobDescription" : "XYZ",
+            "scheduleTime" : "09/10/2017 21:54:00",
+            "lastScheduledTime" : "09/10/2017 21:56:00",
+            "nextScheduleTime" : "09/10/2017 21:58:00",
+            "status" :"Scheduled" 
+        },
+        {
+            "id": 2,
+            "jobName" : "BackupJob",
+            "jobDescription" : "ABC",
+            "scheduleTime" : "09/10/2017 21:55:00",
+            "lastScheduledTime" : "09/10/2017 21:56:00",
+            "nextScheduleTime" : "09/10/2017 21:59:00",
+            "status" :"Running" 
+        }
+    ]
+}

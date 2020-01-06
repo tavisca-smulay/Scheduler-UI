@@ -1,11 +1,11 @@
 import React from 'react';
-import JobsTable from './JobsList/JobsTable';
+import Scheduler from './Scheduler';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div>
-      <JobsTable/>
+      <Scheduler/>
     </div>
   );
 }
