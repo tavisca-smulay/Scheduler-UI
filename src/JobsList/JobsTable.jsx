@@ -4,15 +4,17 @@ import jobsData from '../jobsdata';
 import ShowForm from './ShowForm';
 import './JobsTable.css';
 
-const Jobs = jobsData.jobslist;
+// const Jobs = jobsData.jobslist;
 const headers = ["JOBNAME", "DESCRIPTION", ""];
 
-function JobsTable() {
+function JobsTable(props) {
     const [modalShow, setModalShow] = React.useState(false);
     const [jobName, setJobName] = React.useState("");
 
+    const Jobs = props.jobsData;
     return (
         <div className="table">
+            
             <Table  bordered hover>
                 <tbody>
                     <tr>
@@ -25,7 +27,7 @@ function JobsTable() {
                     {
                         Jobs.map((job, index) => {
                             return (
-                                <tr key={job.id}>
+                                <tr key={index}>
                                     <td>{job.name}</td>
                                     <td>{job.description}</td>
                                     <td><Button className="button" onClick={() => { setModalShow(true); setJobName(job.name); }}>Schedule</Button></td>
@@ -35,7 +37,9 @@ function JobsTable() {
                     }
                 </tbody>
             </Table>
-            <ShowForm name={jobName}
+            <ShowForm 
+                setScheduledJobsData = {props.setScheduledJobsData}
+                name={jobName}
                 show={modalShow}
                 onHide={() => setModalShow(false)} />
         </div>
