@@ -1,9 +1,9 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 import schedulejobsdata from '../schedulejobsdata'
-import Start from '../Assets/start-40.png';
-import Stop from '../Assets/stop-24.png';
-import Delete from '../Assets/delete-24.png';
+import Start from '../Assets/start-icon.png';
+import Stop from '../Assets/stop-icon.png';
+import Delete from '../Assets/delete-icon.png';
 import './ScheduleJobList.css'  
 
 

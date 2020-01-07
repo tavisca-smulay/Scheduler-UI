@@ -11,8 +11,9 @@ function ShowForm(props) {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            scrollable
         >
-            <Modal.Header closeButton>
+            <Modal.Header className="modal-header" closeButton>
                 <h4>Fill in the required details for scheduling the job</h4>
             </Modal.Header>
             <Modal.Body>
