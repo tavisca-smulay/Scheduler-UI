@@ -1,0 +1,67 @@
+.schedulerForm{
+    margin:auto;
+    padding-top: 5%;
+    
+}
+.submitButton{
+    margin-left: 70px;
+    background-color: lightseagreen;
+    color: #000;
+}
+
+div .cron_builder{
+    width: 90% ;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2%;
+    padding: 3px;
+    border: 0px;
+    background-color: white;
+
+    .cron_builder_bordering{
+        padding: 20px;
+
+        .tab-pane{
+            .well{
+                margin: 10px;
+                padding: 10px;
+                width: max-content;   
+                
+                .col-md-offset-2{
+                    display: flex;
+                    .hours{
+                        width:175px;
+                    }
+                    .minutes{
+                        width: 175px;
+                    }
+                }
+            }
+        }
+    }
+    
+     .nav-tabs{
+         .active{
+             background-color: lightseagreen;
+         }
+
+        li{
+            margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 10px;
+                list-style-position: inside;
+                border: 1px solid black;
+                font-weight: bold;
+            a{
+                color:black !important;
+                margin: 10px;
+            }
+        }
+        }
+
+        .cron-builder-bg{
+            margin-top: 5px;
+            background-color: black;
+        }
+}
+

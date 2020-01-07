@@ -5,7 +5,7 @@ import { Form } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import './schedulerForm.css';
+import './schedulerForm.scss';
 import Cron from 'react-cron-generator'
 import 'react-cron-generator/dist/cron-builder.css'
 
@@ -44,21 +44,22 @@ export default function JobSchedulerForm(props) {
                 <Col sm={4}>
                     <Form.Label><b>Schedule Time</b></Form.Label>
                 </Col>
-                </Form.Group>
+            </Form.Group>
 
             <Form.Group as={Row}>
             </Form.Group>
 
-            <div className="cron-builder">
-            <Cron
-                        onChange={(e) => { setValue({ value: e }); console.log(e) }}
-                        value={value}
-                        showResultText={true}
-                        showResultCron={true}
-                    />
+            <div className="cron_builder">
+                <Cron
+                    onChange={(e) => { setValue({ value: e })}}
+                    value={value}
+                    showResultText={true}
+                // showResultCron={true}
+                />
             </div>
 
-            <div class="text-left">
+
+            <div className="text-center">
                 <Button className="submitButton" variant="primary" type="submit">
                     Submit
             </Button>
