@@ -9,8 +9,26 @@ import './ScheduleJobList.css'
 
 function ScheduleJobList(props) {
 
-    const data = schedulejobsdata.scheduleJobs
-    console.log("In ScheduleJobList");
+
+
+
+    const [status,setStatus] = React.useState("Scheduled");
+ 
+    const data = props.scheduledJobsData;
+    console.log("data passed",data);
+    
+ 
+    const startJob = (index) =>{
+        //alert(index);
+        setStatus("Running")
+    }
+ 
+    const deleteJob = (index) =>{
+        props.deleteScheduledJobs(index);
+    }
+
+
+    
     return (
         <div className = "scheduletable">
             
@@ -28,18 +46,18 @@ function ScheduleJobList(props) {
             </tr>
             </thead>
             <tbody>
-            {data.map((item) =>{
+            {data.map((item,index) =>{
                 return(
                     <tr>
-                        <td>{item.jobName}</td>
+                        <td>{item.jobname}</td>
                         <td>{item.country}</td>
                         <td>{item.scheduleTime}</td>
-                        <td>{item.lastScheduledTime}</td>
-                        <td>{item.nextScheduleTime}</td>
-                        <td><img className="actionIcons" src ={Start} alt = "Not found"/>
+                        <td></td>
+                        <td></td>
+                        <td><img className="actionIcons" src ={Start} onClick={()=>startJob(index)} alt = "Not found"/>
                         <img className="actionIcons" src ={Stop} alt = "Not found"/>{' '}{' '}{' '}{' '}
-                        <img className="actionIcons" src ={Delete} alt = "Not found"/></td>
-                        <td>{item.status}</td>
+                        <img className="actionIcons" src ={Delete} onClick={()=>deleteJob(index)} alt = "Not found"/></td>
+                        <td>{status}</td>
                     </tr>
                 );
              })}

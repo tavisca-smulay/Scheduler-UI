@@ -12,55 +12,48 @@ import 'react-cron-generator/dist/cron-builder.css'
 export default function JobSchedulerForm(props) {
 
     const { register, handleSubmit } = useForm();
+
+    // const [value, setValue] = React.useState();
+
+   
     const onSubmit = data => {
-        alert(JSON.stringify(data));
-    };
+        console.log("in scheduler form",data);
+        props.setScheduledJobsData(data);
+        // console.log(value);
+        console.log("in scheduler form",data);
+    };    
 
-    const [value, setValue] = React.useState();
 
-    return (
+
+    return(
         <form className="schedulerForm" onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Row}>
-                <Col sm={2}>
-                    <Form.Label><b>Job Name</b></Form.Label>
-                </Col>
-                <Col sm={4}>{props.jobName}</Col>
-            </Form.Group>
-
-            <Form.Group as={Row}>
-                <Col sm={2}>
-                    <Form.Label><b>Country</b></Form.Label>
-                </Col>
+                <Form.Label column sm={2}>Job Name</Form.Label>
                 <Col sm={4}>
-                    <Form.Control as="select" size="sm" name="country" ref={register({ required: true })}>
-                        <option selected hidden>Select</option>
-                        <option value="UK">UK</option>
-                        <option value="India">India</option>
+                    <Form.Control name = "jobname" ref={register({required:true})} value={props.jobName} readOnly>
                     </Form.Control>
                 </Col>
             </Form.Group>
-
             <Form.Group as={Row}>
+                <Form.Label column sm={2}>Country</Form.Label>
                 <Col sm={4}>
-                    <Form.Label><b>Schedule Time</b></Form.Label>
+                <Form.Control as="select"  size="sm" name="country" ref={register({required:true})}>
+                    <option selected hidden>Select</option>
+                    <option value="UK">UK</option>
+                    <option value="India">India</option>
+                </Form.Control>
                 </Col>
-                </Form.Group>
-
-            <Form.Group as={Row}>
-                    <Cron 
-                        onChange={(e) => { setValue({ value: e }); console.log(e) }}
-                        value={value}
-                        showResultText={true}
-                        showResultCron={true}    
-                    />
             </Form.Group>
-
+            
+            <Form.Group as={Row}>
+                <Form.Label column sm={2}>Schedule Time</Form.Label>
+                <Col sm={4}><Form.Control type="datetime-local" id="scheduleTime" name="scheduleTime" ref={register({required:true})} size="sm"></Form.Control></Col>
+            </Form.Group>
             <div class="text-left">
-                <Button className="submitButton" variant="primary" type="submit">
-                    Submit
+            <Button className="submitButton" variant="primary" type="submit">
+                Submit
             </Button>
-            </div>
+           </div>
         </form>
-
     );
 }
