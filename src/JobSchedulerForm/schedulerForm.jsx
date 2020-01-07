@@ -47,13 +47,16 @@ export default function JobSchedulerForm(props) {
                 </Form.Group>
 
             <Form.Group as={Row}>
-                    <Cron 
+            </Form.Group>
+
+            <div className="cron-builder">
+            <Cron
                         onChange={(e) => { setValue({ value: e }); console.log(e) }}
                         value={value}
                         showResultText={true}
-                        showResultCron={true}    
+                        showResultCron={true}
                     />
-            </Form.Group>
+            </div>
 
             <div class="text-left">
                 <Button className="submitButton" variant="primary" type="submit">
