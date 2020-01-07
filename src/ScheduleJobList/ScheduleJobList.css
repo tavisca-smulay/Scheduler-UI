@@ -1,4 +1,15 @@
+thead{
+    background-color: lightseagreen;
+}
+
 .scheduletable {
+    position: relative;
     margin: 20px;
-    margin-top: 200px;
+    margin-top: 50px;
+    
+}
+
+.actionIcons{
+    padding:5px;
+    margin:5px;
 }

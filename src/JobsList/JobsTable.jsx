@@ -13,7 +13,7 @@ function JobsTable() {
 
     return (
         <div className="table">
-            <Table bordered responsive>
+            <Table  bordered hover>
                 <tbody>
                     <tr>
                         {

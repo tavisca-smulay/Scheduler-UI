@@ -13,10 +13,13 @@ function ScheduleJobList(props) {
     console.log("In ScheduleJobList");
     return (
         <div className = "scheduletable">
-        <Table striped bordered hover>
+            
+        <Table bordered hover >
+    
             <thead>
             <tr>
                 <th>Job Name</th>
+                <th>Country</th>
                 <th>Job Schedule Time</th>
                 <th>Job Last Fired Time</th>
                 <th>Job Next Fired Time</th>
@@ -29,12 +32,13 @@ function ScheduleJobList(props) {
                 return(
                     <tr>
                         <td>{item.jobName}</td>
+                        <td>{item.country}</td>
                         <td>{item.scheduleTime}</td>
                         <td>{item.lastScheduledTime}</td>
                         <td>{item.nextScheduleTime}</td>
-                        <td><img src ={Start} alt = "Not found"/>
-                        <img src ={Stop} alt = "Not found"/>{' '}{' '}{' '}{' '}
-                        <img src ={Delete} alt = "Not found"/></td>
+                        <td><img className="actionIcons" src ={Start} alt = "Not found"/>
+                        <img className="actionIcons" src ={Stop} alt = "Not found"/>{' '}{' '}{' '}{' '}
+                        <img className="actionIcons" src ={Delete} alt = "Not found"/></td>
                         <td>{item.status}</td>
                     </tr>
                 );
