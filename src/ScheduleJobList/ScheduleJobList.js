@@ -13,7 +13,9 @@ function ScheduleJobList(props) {
     console.log("In ScheduleJobList");
     return (
         <div className = "scheduletable">
-        <Table bordered hover>
+            
+        <Table bordered hover >
+    
             <thead>
             <tr>
                 <th>Job Name</th>

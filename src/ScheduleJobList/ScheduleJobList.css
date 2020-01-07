@@ -3,8 +3,10 @@ thead{
 }
 
 .scheduletable {
+    position: relative;
     margin: 20px;
-    margin-top: 200px;
+    margin-top: 50px;
+    
 }
 
 .actionIcons{
