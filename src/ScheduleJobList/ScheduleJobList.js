@@ -1,12 +1,12 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import schedulejobsdata from '../schedulejobsdata'
 import Start from '../Assets/start-icon.png';
 import Stop from '../Assets/stop-icon.png';
 import Delete from '../Assets/delete-icon.png';
 import './ScheduleJobList.css'
 
-const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time", "Job Next Fired Time", "Action", "Status"];
+const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
+    "Job Next Fired Time", "Action", "Status"];
 
 function ScheduleJobList(props) {
 

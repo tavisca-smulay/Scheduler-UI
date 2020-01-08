@@ -51,7 +51,7 @@ export default function JobSchedulerForm(props) {
                     onChange={(e) => { setValue({ value: e })}}
                     value={value}
                     showResultText={true}
-                // showResultCron={true}
+                //  showResultCron={true}
                 />
             </div>
 
