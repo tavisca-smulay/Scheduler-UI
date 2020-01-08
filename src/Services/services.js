@@ -1,11 +1,15 @@
 import React,{Component} from 'react'
 import axios from 'axios';
+debugger
+const serverUrl= "https://my-json-server.typicode.com/tavisca-vmandal" 
 
-class SchedulerService{
-
-    static getJobs(){
-        return axios.get("https://my-json-server.typicode.com/tavisca-vmandal/demoJobs/jobslist");
+export const  getJobs = () =>{
+        let url = serverUrl + "/demoJobs/jobslist"
+        return axios.get(url);
     }
 
-}
-export default SchedulerService
+   export  const  getScheduledJobs = () =>{
+        let url = serverUrl + "/demoSchedulerJobs/scheduleJobs"
+        return axios.get(url);
+    }
+

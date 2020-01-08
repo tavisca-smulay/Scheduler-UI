@@ -13,9 +13,7 @@ function ScheduleJobList(props) {
     const [status, setStatus] = React.useState("Scheduled");
 
     const data = props.scheduledJobsData;
-    console.log("data passed", data);
-
-
+    
     const startJob = (index) => {
         setStatus("Running")
     }
@@ -40,15 +38,16 @@ function ScheduleJobList(props) {
                     {data.map((item, index) => {
                         return (
                             <tr>
-                                <td>{item.jobname}</td>
+                                <td>{item.jobName}</td>
                                 <td>{item.country}</td>
                                 <td>{item.scheduleTime}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{item.lastScheduledTime}</td>
+                                <td>{item.nextScheduleTime}</td>
+                            
                                 <td><img className="actionIcons" src={Start} onClick={() => startJob(index)} alt="Not found" />
                                     <img className="actionIcons" src={Stop} alt="Not found" />{' '}{' '}{' '}{' '}
                                     <img className="actionIcons" src={Delete} onClick={() => deleteJob(index)} alt="Not found" /></td>
-                                <td>{status}</td>
+                                <td>{item.status}</td>
                             </tr>
                         );
                     })}
