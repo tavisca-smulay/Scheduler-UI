@@ -1,15 +1,15 @@
-import React,{Component} from 'react'
 import axios from 'axios';
-debugger
+
 const serverUrl= "https://my-json-server.typicode.com/tavisca-vmandal" 
 
-export const  getJobs = () =>{
+export const  getJobs =async () =>{
         let url = serverUrl + "/demoJobs/jobslist"
-        return axios.get(url);
+        return await axios.get(url);
+        
 }
 
-export  const  getScheduledJobs = () =>{
+export  const  getScheduledJobs =async () =>{
         let url = serverUrl + "/demoSchedulerJobs/scheduleJobs"
-        return axios.get(url);
+        return await axios.get(url);
 }
 
