@@ -46,8 +46,6 @@ class Scheduler extends Component {
     render() {
         let {scheduledJobs,jobsList}=this.state;
 
-
-
         if (this.state.scheduledJobs.length > 0) {
             return (
                 <div>
