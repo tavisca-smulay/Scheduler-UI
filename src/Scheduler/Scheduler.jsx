@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import JobsTable from './JobsList/JobsTable'
-import ScheduleJobList from './ScheduleJobList/ScheduleJobList'
-import Header from './Header/Header'
+import JobsTable from '../JobsList/JobsTable'
+import ScheduleJobList from '../ScheduleJobList/ScheduleJobList'
+import Header from '../Header/Header'
 import axios from 'axios';
-import {getJobs, getScheduledJobs} from './Services/services'
+import {getJobs, getScheduledJobs} from '../Services/services'
 
 class Scheduler extends Component {
 
@@ -38,7 +38,6 @@ class Scheduler extends Component {
         this.getAllJobs();
 
         this.getScheduledJobs();
-        
     }
 
     getAllJobs=()=>{
@@ -47,9 +46,7 @@ class Scheduler extends Component {
             const jobs=response.data;
             this.setState({jobsList:jobs})
         }).catch(error=>
-            console.log(error));
-
-        
+            console.log(error));    
     }
 
     getScheduledJobs=()=>{
@@ -68,13 +65,13 @@ class Scheduler extends Component {
 
         if (this.state.scheduledJobs.length > 0) {
             return (
-                <div>
+                <>
                     <Header />
 
                     <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
 
                     <ScheduleJobList scheduledJobsData={scheduledJobs} deleteScheduledJobs={this.deleteScheduledJobsData} />
-                </div>
+                </>
             )
         }
 
@@ -84,7 +81,6 @@ class Scheduler extends Component {
                 <JobsTable jobsData={this.state.jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
 
             </>
-
         )
     }
 
