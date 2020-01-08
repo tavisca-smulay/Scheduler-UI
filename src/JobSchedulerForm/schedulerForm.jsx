@@ -23,8 +23,6 @@ export default function JobSchedulerForm(props) {
         console.log("in scheduler form",data);
     };    
 
-
-
     return(
         <form className="schedulerForm" onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Row}>

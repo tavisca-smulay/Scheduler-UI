@@ -3,6 +3,7 @@ import JobsTable from './JobsList/JobsTable'
 import ScheduleJobList from './ScheduleJobList/ScheduleJobList'
 import Header from './Header/Header'
 import axios from 'axios';
+import SchedulerService from './Services/services'
 
 class Scheduler extends Component {
 
@@ -16,15 +17,12 @@ class Scheduler extends Component {
         this.deleteScheduledJobsData = this.deleteScheduledJobsData.bind(this);
     }
 
-
     updateScheduledJobsData = data => {
-        console.log("Inside update function", data);
 
         var myArray = this.state.scheduledJobs.slice();
         myArray.push(data);
-        console.log("my array", myArray);
         this.setState({ scheduledJobs: myArray });
-        console.log("State data", this.state.scheduledJobs);
+       
     }
 
     deleteScheduledJobsData = (index) => {
@@ -36,17 +34,19 @@ class Scheduler extends Component {
 
 
     componentDidMount() {
-        axios.get(`https://my-json-server.typicode.com/tavisca-vmandal/demoJobs/jobslist`)
-            .then(res => {
-                const jobs = res.data;
-                this.setState({ jobsList: jobs });
-            })
+        
+         SchedulerService.getJobs()
+        .then(response=>{
+            const jobs=response.data;
+            this.setState({jobsList:jobs})
+        }).catch(error=>
+            console.log(error));
+
     }
+
 
     render() {
         let {scheduledJobs,jobsList}=this.state;
-
-
 
         if (this.state.scheduledJobs.length > 0) {
             return (

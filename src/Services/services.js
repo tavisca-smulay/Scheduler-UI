@@ -1,10 +1,11 @@
 import React,{Component} from 'react'
+import axios from 'axios';
 
+class SchedulerService{
 
-class Services extends Component{
+    static getJobs(){
+        return axios.get("https://my-json-server.typicode.com/tavisca-vmandal/demoJobs/jobslist");
+    }
 
-
-    
 }
-
-export default Services
+export default SchedulerService
