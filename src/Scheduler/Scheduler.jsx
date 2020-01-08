@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import JobsTable from '../JobsList/JobsTable'
 import ScheduleJobList from '../ScheduleJobList/ScheduleJobList'
 import Header from '../Header/Header'
-import axios from 'axios';
 import {getJobs, getScheduledJobs} from '../Services/services'
 
 class Scheduler extends Component {
@@ -36,7 +35,6 @@ class Scheduler extends Component {
     componentDidMount() {
         
         this.getAllJobs();
-
         this.getScheduledJobs();
     }
 
