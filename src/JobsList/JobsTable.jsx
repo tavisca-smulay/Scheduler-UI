@@ -1,11 +1,9 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
-import jobsData from '../jobsdata';
 import ShowForm from './ShowForm';
 import './JobsTable.css';
 
-// const Jobs = jobsData.jobslist;
-const headers = ["JOBNAME", "DESCRIPTION", ""];
+const headers = ["JOB NAME", "DESCRIPTION", ""];
 
 function JobsTable(props) {
     const [modalShow, setModalShow] = React.useState(false);

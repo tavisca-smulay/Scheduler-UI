@@ -13,13 +13,13 @@ export default function JobSchedulerForm(props) {
 
     const { register, handleSubmit } = useForm();
 
-    // const [value, setValue] = React.useState();
+    const [value, setValue] = React.useState();
 
    
     const onSubmit = data => {
+        alert(data.jobname);
         console.log("in scheduler form",data);
         props.setScheduledJobsData(data);
-        // console.log(value);
         console.log("in scheduler form",data);
     };    
 
@@ -28,17 +28,16 @@ export default function JobSchedulerForm(props) {
     return(
         <form className="schedulerForm" onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Row}>
-                <Form.Label column sm={2}>Job Name</Form.Label>
+                <Form.Label column sm={2}><b>Job Name</b></Form.Label>
                 <Col sm={4}>
                     <Form.Control name = "jobname" ref={register({required:true})} value={props.jobName} readOnly>
                     </Form.Control>
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
-                <Form.Label column sm={2}>Country</Form.Label>
+                <Form.Label column sm={2}><b>Country</b></Form.Label>
                 <Col sm={4}>
                 <Form.Control as="select"  size="sm" name="country" ref={register({required:true})}>
-                    <option selected hidden>Select</option>
                     <option value="UK">UK</option>
                     <option value="India">India</option>
                 </Form.Control>
@@ -46,6 +45,7 @@ export default function JobSchedulerForm(props) {
             </Form.Group>
 
             <Form.Group as={Row}>
+            <Form.Label column sm={8}><b>Schedule Time</b></Form.Label>
             </Form.Group>
 
             <div className="cron_builder">
