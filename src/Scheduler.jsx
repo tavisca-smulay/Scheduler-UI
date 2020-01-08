@@ -3,7 +3,7 @@ import JobsTable from './JobsList/JobsTable'
 import ScheduleJobList from './ScheduleJobList/ScheduleJobList'
 import Header from './Header/Header'
 import axios from 'axios';
-import SchedulerService from './Services/services'
+import {getJobs, getScheduledJobs} from './Services/services'
 
 class Scheduler extends Component {
 
@@ -35,13 +35,31 @@ class Scheduler extends Component {
 
     componentDidMount() {
         
-         SchedulerService.getJobs()
+        this.getAllJobs();
+
+        this.getScheduledJobs();
+        
+    }
+
+    getAllJobs=()=>{
+        getJobs()
         .then(response=>{
             const jobs=response.data;
             this.setState({jobsList:jobs})
         }).catch(error=>
             console.log(error));
 
+        
+    }
+
+    getScheduledJobs=()=>{
+        getScheduledJobs()
+        .then(response=>{
+            const scheduledJobs=response.data;
+            console.log(scheduledJobs);
+            this.setState({scheduledJobs:scheduledJobs})
+        }).catch(error=>
+            console.log(error));
     }
 
 
@@ -61,11 +79,11 @@ class Scheduler extends Component {
         }
 
         return (
-            <div>
+            <>
                 <Header />
                 <JobsTable jobsData={this.state.jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
 
-            </div>
+            </>
 
         )
     }
