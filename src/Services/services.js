@@ -6,7 +6,6 @@ const serverUrl="http://172.16.5.195:8888"
 export const  getJobs =async () =>{
         let url = serverUrl + "/job-configs"
         return await axios.get(url);
-        
 }
 
 export  const  getScheduledJobs =async () =>{
@@ -15,9 +14,12 @@ export  const  getScheduledJobs =async () =>{
 }
 
 
-export const postScheduleJob = jsonData => {
-    let url = serverUrl + "/schedule-job"
-    let res=axios.post(url,  jsonData );
-    console.log("in post service",res);
-    return res;
+export const postScheduleJob =async (jsonData) => {
+        let url = serverUrl + "/schedule-job"
+        return await axios.post(url,  jsonData );
   };
+
+export const deleteScheduledJob=async (jsonData) =>{
+        let url = serverUrl + "/delete-scheduled-job"
+        return await axios.delete(url,  {data:jsonData} );
+  }
