@@ -26,9 +26,9 @@ function JobsTable(props) {
                         Jobs.map((job, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{job.name}</td>
+                                    <td>{job.jobName}</td>
                                     <td>{job.description}</td>
-                                    <td><Button className="button" onClick={() => { setModalShow(true); setJobName(job.name); }}>Schedule</Button></td>
+                                    <td><Button className="button" onClick={() => { setModalShow(true); setJobName(job.jobName); }}>Schedule</Button></td>
                                 </tr>
                             )
                         })
