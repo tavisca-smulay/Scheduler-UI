@@ -40,9 +40,9 @@ function ScheduleJobList(props) {
                             <tr>
                                 <td>{item.name}</td>
                                 <td>{item.country}</td>
-                                <td>{item.scheduleTime}</td>
+                                <td>{item.cronExpression}</td>
                                 <td>{item.lastScheduledTime}</td>
-                                <td>{item.nextScheduleTime}</td>
+                                <td>{item.nextScheduledTime}</td>
                             
                                 <td><img className="actionIcons" src={Start} onClick={() => startJob(index)} alt="Not found" />
                                     <img className="actionIcons" src={Stop} alt="Not found" />{' '}{' '}{' '}{' '}
