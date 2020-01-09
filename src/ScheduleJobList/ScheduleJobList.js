@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table'
 import Start from '../Assets/start-icon.png';
 import Stop from '../Assets/stop-icon.png';
 import Delete from '../Assets/delete-icon.png';
-import './ScheduleJobList.css'
+import './ScheduleJobList.css';
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
     "Job Next Fired Time", "Action", "Status"];
@@ -16,6 +16,10 @@ function ScheduleJobList(props) {
     
     const startJob = (index) => {
         setStatus("Running")
+    }
+
+    const stopJob = (index) => {
+        props.stopScheduledJobs(index);
     }
 
     const deleteJob = (index) => {
@@ -45,7 +49,7 @@ function ScheduleJobList(props) {
                                 <td>{item.nextScheduledTime}</td>
                             
                                 <td><img className="actionIcons" src={Start} onClick={() => startJob(index)} alt="Not found" />
-                                    <img className="actionIcons" src={Stop} alt="Not found" />
+                                    <img className="actionIcons" src={Stop} onClick={()=>stopJob(index)} alt="Not found" />
                                     <img className="actionIcons" src={Delete} onClick={() => deleteJob(index)} alt="Not found" /></td>
                                 <td>{item.status}</td>
                             </tr>

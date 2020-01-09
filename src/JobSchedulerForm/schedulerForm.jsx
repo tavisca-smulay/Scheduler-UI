@@ -28,12 +28,10 @@ export default function JobSchedulerForm(props) {
         }
         console.log("My json data",jsondata);
         
-        postScheduleJob(jsondata).then(response=>{
-           
-            console.log(response.data);
+        postScheduleJob(jsondata)
+        .then(response=>{
+           props.setScheduledJobsData(response.data);
         })
-       props.setScheduledJobsData(jsondata);
-
     };    
 
     return(

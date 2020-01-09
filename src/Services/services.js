@@ -21,8 +21,8 @@ export const postScheduleJob = jsonData => {
     return res;
   };
 
-//   export  const  stopJob = jsonData =>{
-//         let url = serverUrl + "/stop"
-//         return axios.post(url,jsonData);
-//     }    
+  export  const  stopJob = jsonData =>{
+        let url = serverUrl + "/stop"
+        return axios.post(url,jsonData);
+    }    
 
