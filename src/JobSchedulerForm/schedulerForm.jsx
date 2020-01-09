@@ -19,7 +19,6 @@ export default function JobSchedulerForm(props) {
 
    
     const onSubmit = data => {
-       
         let jsondata = {
             jobName:data.jobname,
             country:data.country,

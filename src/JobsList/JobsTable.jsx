@@ -27,7 +27,9 @@ function JobsTable(props) {
                                 <tr key={index}>
                                     <td>{job.jobName}</td>
                                     <td>{job.description}</td>
+
                                     <td><Button className="button" onClick={() => { setModalShow(true); setJobName(job.jobName); }}>Schedule</Button></td>
+
                                 </tr>
                             )
                         })

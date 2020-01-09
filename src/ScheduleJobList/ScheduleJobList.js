@@ -62,11 +62,13 @@ function ScheduleJobList(props) {
                                 <td>{item.lastScheduledTime}</td>
                                 <td>{item.nextScheduledTime}</td>
                             
+
                                 <td><img className="actionIcons" src={Start} 
                                         onClick={() => startJob(index)} alt="Not found" />
                                     <img className="actionIcons" src={Stop} alt="Not found" />{' '}{' '}{' '}{' '}
                                     <img className="actionIcons" src={Delete} 
                                         onClick={() => deleteJob(index,item)} alt="Not found" /></td>
+
                                 <td>{item.status}</td>
                             </tr>
                         );

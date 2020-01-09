@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 
 // const serverUrl= "https://my-json-server.typicode.com/tavisca-vmandal" 
@@ -23,3 +24,4 @@ export const deleteScheduledJob=async (jsonData) =>{
         let url = serverUrl + "/delete-scheduled-job"
         return await axios.delete(url,  {data:jsonData} );
   }
+
