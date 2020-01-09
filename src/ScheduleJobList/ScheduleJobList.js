@@ -3,7 +3,8 @@ import Table from 'react-bootstrap/Table'
 import Start from '../Assets/start-icon.png';
 import Stop from '../Assets/stop-icon.png';
 import Delete from '../Assets/delete-icon.png';
-import './ScheduleJobList.css';
+import './ScheduleJobList.css'
+import {deleteScheduledJob} from  '../Services/services'
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
     "Job Next Fired Time", "Action", "Status"];
@@ -22,9 +23,25 @@ function ScheduleJobList(props) {
         props.stopScheduledJobs(index);
     }
 
-    const deleteJob = (index) => {
-        props.deleteScheduledJobs(index);
+    const deleteJob = (index,scheduledJob) => {
+
+        let jsondata = {
+            jobName:scheduledJob.jobName,
+            country:scheduledJob.country,
+            cronExpression:scheduledJob.cronExpression
+        }
+        
+        deleteJobRequest(index,jsondata);
     }
+
+   const deleteJobRequest=async (index,jsondata)=>{
+        let response=await deleteScheduledJob(jsondata);
+        let {status}=response;
+        console.log("deleted status res",status);
+        if(status===200)
+            props.deleteScheduledJobs(index);
+    }
+
 
     return (
         <div className="scheduletable">
@@ -48,9 +65,13 @@ function ScheduleJobList(props) {
                                 <td>{item.lastScheduledTime}</td>
                                 <td>{item.nextScheduledTime}</td>
                             
-                                <td><img className="actionIcons" src={Start} onClick={() => startJob(index)} alt="Not found" />
-                                    <img className="actionIcons" src={Stop} onClick={()=>stopJob(index)} alt="Not found" />
-                                    <img className="actionIcons" src={Delete} onClick={() => deleteJob(index)} alt="Not found" /></td>
+
+                                <td><img className="actionIcons" src={Start} 
+                                        onClick={() => startJob(index)} alt="Not found" />
+                                    <img className="actionIcons" src={Stop} onClick={()=>stopJob(index)} alt="Not found" />{' '}{' '}{' '}{' '}
+                                    <img className="actionIcons" src={Delete} 
+                                        onClick={() => deleteJob(index,item)} alt="Not found" /></td>
+
                                 <td>{item.status}</td>
                             </tr>
                         );

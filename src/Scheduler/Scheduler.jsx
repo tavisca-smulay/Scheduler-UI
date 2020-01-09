@@ -53,6 +53,7 @@ class Scheduler extends Component {
     componentDidMount() {
         this.getAllJobs();
         this.getScheduledJobs();
+     
     }
 
 
