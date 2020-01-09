@@ -9,7 +9,7 @@ export const  getJobs =async () =>{
         
 }
 
-export  const  getScheduledJobs =async () =>{
+export const getScheduledJobs =async () =>{
         let url = serverUrl + "/scheduled-jobs"
         return await axios.get(url);
 }

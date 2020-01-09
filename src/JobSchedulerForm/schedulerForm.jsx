@@ -23,24 +23,16 @@ export default function JobSchedulerForm(props) {
         console.log("data form",data);
         let jsondata = {
             jobName:data.jobname,
-            jobCountry:data.country,
-            jobCronExpression:value.value
+            country:data.country,
+            cronExpression:value.value
         }
         console.log("My json data",jsondata);
         
-        postScheduleJob(jsondata).then(response=>{
-           
-            console.log(response.data);
-            // props.setScheduledJobsData(response.data);
+        postScheduleJob(jsondata)
+        .then(response=>{
+           console.log(response.data);
         })
        props.setScheduledJobsData(jsondata);
-
-
-        // alert(data.jobname);
-        // console.log("in scheduler form",data);
-        // props.setScheduledJobsData(data);
-        // console.log("in scheduler form",data);
-      
     };    
 
     return(
