@@ -38,7 +38,7 @@ function ScheduleJobList(props) {
                     {data.map((item, index) => {
                         return (
                             <tr>
-                                <td>{item.jobName}</td>
+                                <td>{item.name}</td>
                                 <td>{item.country}</td>
                                 <td>{item.cronExpression}</td>
                                 <td>{item.lastScheduledTime}</td>

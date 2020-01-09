@@ -19,6 +19,7 @@ export default function JobSchedulerForm(props) {
 
    
     const onSubmit = data => {
+      
         console.log("data form",data);
         let jsondata = {
             jobName:data.jobname,
@@ -39,6 +40,7 @@ export default function JobSchedulerForm(props) {
         // console.log("in scheduler form",data);
         // props.setScheduledJobsData(data);
         // console.log("in scheduler form",data);
+      
     };    
 
     return(

@@ -48,6 +48,7 @@ class Scheduler extends Component {
         let res=await getScheduledJobs()
         let {data}=res;
         this.setState({scheduledJobs:data})
+        console.log("In Scheduler",this.state.scheduledJobs)
     }
 
 
