@@ -38,14 +38,14 @@ function ScheduleJobList(props) {
                     {data.map((item, index) => {
                         return (
                             <tr>
-                                <td>{item.name}</td>
+                                <td>{item.jobName}</td>
                                 <td>{item.country}</td>
                                 <td>{item.cronExpression}</td>
                                 <td>{item.lastScheduledTime}</td>
                                 <td>{item.nextScheduledTime}</td>
                             
                                 <td><img className="actionIcons" src={Start} onClick={() => startJob(index)} alt="Not found" />
-                                    <img className="actionIcons" src={Stop} alt="Not found" />{' '}{' '}{' '}{' '}
+                                    <img className="actionIcons" src={Stop} alt="Not found" />
                                     <img className="actionIcons" src={Delete} onClick={() => deleteJob(index)} alt="Not found" /></td>
                                 <td>{item.status}</td>
                             </tr>
