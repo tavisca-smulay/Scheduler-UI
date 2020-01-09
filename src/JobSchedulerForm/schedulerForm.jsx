@@ -7,7 +7,6 @@ import { Col } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import './schedulerForm.scss';
 import Cron from 'react-cron-generator'
-import {postScheduleJob} from '../Services/services'
 import 'react-cron-generator/dist/cron-builder.css'
 
 export default function JobSchedulerForm(props) {
@@ -19,16 +18,6 @@ export default function JobSchedulerForm(props) {
    
     const onSubmit = data => {
         console.log("in scheduler form",data);
-        let jsondata = {
-            name:data.jobname,
-            country:data.country,
-            value:value.value
-        }
-        console.log("My json data",jsondata);
-        
-        postScheduleJob(jsondata).then(response=>{
-            console.log(response.data)
-        })
         props.setScheduledJobsData(jsondata);
     
     };    

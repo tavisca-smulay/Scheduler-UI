@@ -38,23 +38,17 @@ class Scheduler extends Component {
         this.getScheduledJobs();
     }
 
-    getAllJobs=()=>{
-        getJobs()
-        .then(response=>{
-            const jobs=response.data;
-            this.setState({jobsList:jobs})
-        }).catch(error=>
-            console.log(error));    
+    getAllJobs=async ()=>{
+        let res=await getJobs();
+        let {data}=res;
+        this.setState({jobsList:data}); 
     }
 
-    getScheduledJobs=()=>{
-        getScheduledJobs()
-        .then(response=>{
-            const scheduledJobs=response.data;
-            console.log(scheduledJobs);
-            this.setState({scheduledJobs:scheduledJobs})
-        }).catch(error=>
-            console.log(error));
+    getScheduledJobs=async()=>{
+        let res=await getScheduledJobs()
+        let {data}=res;
+        this.setState({scheduledJobs:data})
+        console.log("In Scheduler",this.state.scheduledJobs)
     }
 
 
@@ -65,14 +59,11 @@ class Scheduler extends Component {
             return (
                 <>
                     <Header />
-
                     <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
-
                     <ScheduleJobList scheduledJobsData={scheduledJobs} deleteScheduledJobs={this.deleteScheduledJobsData} />
                 </>
             )
         }
-
         return (
             <>
                 <Header />
@@ -81,6 +72,5 @@ class Scheduler extends Component {
             </>
         )
     }
-
 }
 export default Scheduler;
