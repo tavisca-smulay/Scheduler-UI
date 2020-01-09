@@ -24,6 +24,7 @@ export default function JobSchedulerForm(props) {
             country:data.country,
             cronExpression:value.value
         }
+
        
         scheduleJobRequest(jsondata);
 
