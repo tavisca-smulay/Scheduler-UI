@@ -19,22 +19,21 @@ export default function JobSchedulerForm(props) {
 
    
     const onSubmit = data => {
-      
-        console.log("data form",data);
         let jsondata = {
             jobName:data.jobname,
             country:data.country,
             cronExpression:value.value
         }
-        console.log("My json data",jsondata);
-        
-        postScheduleJob(jsondata).then(response=>{
-           
-            console.log(response.data);
-        })
-       props.setScheduledJobsData(jsondata);
+       
+        scheduleJobRequest(jsondata);
 
     };    
+
+    const scheduleJobRequest= async (jsondata)=>{
+        let response=await postScheduleJob(jsondata);
+        let {data}=response;
+        props.setScheduledJobsData(data);
+    }
 
     return(
         <form className="schedulerForm" onSubmit={handleSubmit(onSubmit)}>

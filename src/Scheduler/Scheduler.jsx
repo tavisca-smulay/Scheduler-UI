@@ -36,6 +36,7 @@ class Scheduler extends Component {
         
         this.getAllJobs();
         this.getScheduledJobs();
+     
     }
 
     getAllJobs=async ()=>{
@@ -59,7 +60,7 @@ class Scheduler extends Component {
             return (
                 <>
                     <Header />
-                    <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
+                    <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData}  />
                     <ScheduleJobList scheduledJobsData={scheduledJobs} deleteScheduledJobs={this.deleteScheduledJobsData} />
                 </>
             )

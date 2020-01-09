@@ -8,7 +8,6 @@ const headers = ["JOB NAME", "DESCRIPTION", ""];
 function JobsTable(props) {
     const [modalShow, setModalShow] = React.useState(false);
     const [jobName, setJobName] = React.useState("");
-
     const Jobs = props.jobsData;
     return (
         <div className="table">
