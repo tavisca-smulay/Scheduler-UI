@@ -6,51 +6,67 @@ import Delete from '../Assets/delete-icon.png';
 import Resume from '../Assets/resume-icon.png';
 import './ScheduleJobList.css'
 
+
 import { Button, ButtonGroup, Card } from 'react-bootstrap';
-import { deleteScheduledJob, startJob } from '../Services/services'
+import {deleteScheduledJob, stopScheduledJob,resumeScheduledJob,startScheduledJob} from  '../Services/services'
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
     "Job Next Fire Time", "Action", "Status"];
 
 function ScheduleJobList(props) {
 
-
-    const itemsRef = useRef([]);
+    const itemsRef=useRef([]);
 
     const data = props.scheduledJobsData;
 
-    useEffect((index) => {
-        itemsRef.current = itemsRef.current.slice(0, data.length);
+    useEffect(() => {
+        itemsRef.current = itemsRef.current.slice(0, data.length); 
     }, [data]);
 
-    const switchImage = (index, item) => {
+    const switchImage=(item,index)=>{
+      
+        if(item.status==="PAUSED")
+            itemsRef.current[index].setAttribute('src',Resume);
 
-        console.log(itemsRef.current[index]);
-
-        if (item.status === "Stopped")
-            itemsRef.current[index].setAttribute('src', Resume);
         else
             itemsRef.current[index].setAttribute('src', Stop);
     }
 
+    const requestAction=(item)=>{
 
-    const startJob = (index) => {
-        props.startScheduledJob(index);
+         if(item.status==="SCHEDULED")
+            stopJob(item);
+         else
+            resumeJob(item);
+        
     }
 
-    const requestAction = () => {
-
-
+    const resumeJob =async (item) => {
+        let response=await resumeScheduledJob(item.jobKey);
+        let {status}=response;
+        console.log("resume status res",status);
+        if(status===200)
+          props.getScheduledJobs();
+          
+    
     }
-    const stopJob = (index) => {
-        props.stopScheduledJobs(index)
+    
+    const stopJob =async (item) => {
+        let response=await stopScheduledJob(item.jobKey);
+        let {status}=response;
+        console.log("stop status res",status);
+        if(status===200)
+            props.getScheduledJobs();
+       
     }
 
 
-    const deleteJob = (jobKey) => {
-        console.log(jobKey);
-        deleteJobRequest(jobKey);
-
+    const startJob =async (item) => {
+        let response=await startScheduledJob(item.jobKey);
+        let {status}=response;
+        console.log("start status res",status);
+        if(status===200)
+            props.getScheduledJobs();
     }
 
     const deleteJobRequest = async (jobKey) => {
@@ -89,23 +105,25 @@ function ScheduleJobList(props) {
                                         <td>{item.nextScheduledTime}</td>
 
                                         <td>
-                                            <ButtonGroup size="sm">
-                                                <Button variant="outline-dark"><img className="actionIcons" src={Start} onClick={() => startJob(index)}
-                                                    alt="Not found" />
-                                                </Button>
+                                           <ButtonGroup size="sm">
 
-                                                <Button variant="outline-dark" onClick={() => { requestAction(); switchImage(index, item) }}>
+                                        <Button variant="outline-dark" onClick={() => startJob(item.jobKey)}><img className="actionIcons" src={Start} 
+                                            alt="Not found" />
 
-                                                    <img className="actionIcons" key={index}
-                                                        ref={el => itemsRef.current[index] = el} src={item.status === "Scheduled" ? Stop : Resume}
-                                                        alt="Not found" /></Button>
+                                        </Button>
+                                    
+                                       <Button variant="outline-dark" onClick={()=>{requestAction(item); switchImage(item,index)}}>
+                                           <img className="actionIcons" key={index}
+                                            ref={el => itemsRef.current[index] = el} src={item.status==="SCHEDULED"?Stop:Resume}
+                                            alt="Not found" /></Button>
+                                        
+                                        <Button variant="outline-dark" onClick={() => deleteJob(item.jobKey)} >   
+                                            <img className="actionIcons" src={Delete} 
 
-                                                <Button variant="outline-dark" >
-                                                    <img className="actionIcons" src={Delete}
-                                                        onClick={() => deleteJob(item.jobKey)} alt="Not found" />
-                                                </Button>
-                                            </ButtonGroup>
+                                            alt="Not found"/>
 
+                                        </Button>
+                                    </ButtonGroup>
                                         </td>
 
                                         <td>{item.status}</td>
@@ -147,7 +165,6 @@ function ScheduleJobList(props) {
             </div>
         )
     }
-
 }
 
 export default ScheduleJobList
