@@ -16,7 +16,7 @@ export const getScheduledJobs =async () =>{
 }
 
 
-export const postScheduleJob =async (jsonData) => {
+ export const postScheduleJob =async (jsonData) => {
         let url = serverUrl + "/schedule-job"
         return  await axios.post(url,  jsonData );
       
@@ -43,4 +43,5 @@ export const deleteScheduledJob=async (jobkey) =>{
         console.log("url delete",url);
         return await axios.delete(url);
 }
+
 

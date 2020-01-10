@@ -5,6 +5,7 @@ import Stop from '../Assets/stop-icon.png';
 import Delete from '../Assets/delete-icon.png';
 import Resume from '../Assets/resume-icon.png';
 import './ScheduleJobList.css'
+
 import { Button , ButtonGroup} from 'react-bootstrap';
 import {deleteScheduledJob, stopScheduledJob,resumeScheduledJob,startScheduledJob} from  '../Services/services'
 
@@ -14,6 +15,7 @@ const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Tim
 function ScheduleJobList(props) {
 
     const itemsRef=useRef([]);
+
     const data = props.scheduledJobsData;
 
     useEffect(() => {
@@ -28,6 +30,7 @@ function ScheduleJobList(props) {
             itemsRef.current[index].setAttribute('src',Stop);
     }
     
+
     const requestAction=(item)=>{
 
          if(item.status==="SCHEDULED")
@@ -66,6 +69,7 @@ function ScheduleJobList(props) {
 
    const deleteJob=async (jobKey)=>{
        console.log("jobkey",jobKey);
+
         let response=await deleteScheduledJob(jobKey);
         let {status}=response;
         console.log("deleted status res",status);
@@ -76,6 +80,7 @@ function ScheduleJobList(props) {
     return (
         <div className="scheduletable">
 
+
             <Table bordered hover >
                 <thead>
                     <tr>
@@ -84,20 +89,26 @@ function ScheduleJobList(props) {
                         })}
                     </tr>
                 </thead>
+                
                 <tbody>
-               
-                    {data.map((item, index) => {
-                        return (  
+
+                    {
+                    data.map((item, index) => {
+                        return (
+
                             <tr>
                                 <td>{item.jobName}</td>
                                 <td>{item.country}</td>
                                 <td>{item.cronExpression}</td>
                                 <td>{item.lastScheduledTime}</td>
                                 <td>{item.nextScheduledTime}</td>
+
                                 <td>
                                     <ButtonGroup size="sm">
+
                                         <Button variant="outline-dark" onClick={() => startJob(item.jobKey)}><img className="actionIcons" src={Start} 
                                             alt="Not found" />
+
                                         </Button>
                                     
                                        <Button variant="outline-dark" onClick={()=>{requestAction(item); switchImage(item,index)}}>
@@ -107,11 +118,14 @@ function ScheduleJobList(props) {
                                         
                                         <Button variant="outline-dark" onClick={() => deleteJob(item.jobKey)} >   
                                             <img className="actionIcons" src={Delete} 
+
                                             alt="Not found"/>
+
                                         </Button>
                                     </ButtonGroup>
                                     
                                 </td>
+
                                 <td>{item.status}</td>
                             </tr>
                         );

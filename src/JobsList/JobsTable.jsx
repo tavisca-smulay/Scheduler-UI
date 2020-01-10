@@ -36,8 +36,11 @@ function JobsTable(props) {
                 </tbody>
             </Table>
             <ShowForm 
+                setCronExpression = {props.setCronExpression}
                 setScheduledJobsData = {props.setScheduledJobsData}
+
                 getScheduledJobs={props.getScheduledJobs} 
+
                 name={jobName}
                 show={modalShow}
                 onHide={() => setModalShow(false)} />
