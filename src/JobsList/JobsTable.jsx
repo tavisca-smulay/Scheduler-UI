@@ -9,6 +9,7 @@ function JobsTable(props) {
     const [modalShow, setModalShow] = React.useState(false);
     const [jobName, setJobName] = React.useState("");
     const Jobs = props.jobsData;
+    
     return (
         <div className="table">
             
@@ -28,7 +29,6 @@ function JobsTable(props) {
                                     <td>{job.jobName}</td>
                                     <td>{job.description}</td>
                                     <td><Button className="button" onClick={() => { setModalShow(true); setJobName(job.jobName); }}>Schedule</Button></td>
-
                                 </tr>
                             )
                         })
