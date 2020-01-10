@@ -4,8 +4,10 @@ import ScheduleJobList from '../ScheduleJobList/ScheduleJobList'
 import Header from '../Header/Header'
 import { getJobs, getScheduledJobs, stopJob } from '../Services/services'
 
+
 class Scheduler extends Component {
 
+  
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +17,9 @@ class Scheduler extends Component {
         this.updateScheduledJobsData = this.updateScheduledJobsData.bind(this);
         this.deleteScheduledJobsData = this.deleteScheduledJobsData.bind(this);
         this.stopScheduledJobsData = this.stopScheduledJobsData.bind(this);
+        
     }
+
 
     updateScheduledJobsData = data => {
 
@@ -26,6 +30,8 @@ class Scheduler extends Component {
     }
 
     deleteScheduledJobsData = (index) => {
+
+        
         const data = this.state.scheduledJobs;
         this.setState({
             scheduledJobs: [...data.slice(0, index), ...data.slice(index + 1)]
@@ -37,7 +43,7 @@ class Scheduler extends Component {
             jobName: this.state.scheduledJobs[index].jobName,
             country: this.state.scheduledJobs[index].country,
             cronExpression: this.state.scheduledJobs[index].cronExpression
-        }
+        };
 
         stopJob(jsonData)
             .then(response => {
@@ -55,7 +61,6 @@ class Scheduler extends Component {
         this.getScheduledJobs();
      
     }
-
 
     getAllJobs = async () => {
         let res = await getJobs();
@@ -79,7 +84,9 @@ class Scheduler extends Component {
                 <>
                     <Header />
                     <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
-                    <ScheduleJobList scheduledJobsData={scheduledJobs} deleteScheduledJobs={this.deleteScheduledJobsData} stopScheduledJobs={this.stopScheduledJobsData} />
+                    <ScheduleJobList scheduledJobsData={scheduledJobs} deleteScheduledJobs={this.deleteScheduledJobsData}
+                         stopScheduledJobs={this.stopScheduledJobsData}
+                          />
                 </>
             )
         }

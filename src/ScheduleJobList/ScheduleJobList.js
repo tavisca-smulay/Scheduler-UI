@@ -1,22 +1,38 @@
-import React from 'react'
+import React, { useState, useRef,useEffect }  from 'react'
 import Table from 'react-bootstrap/Table'
 import Start from '../Assets/start-icon.png';
 import Stop from '../Assets/stop-icon.png';
 import Delete from '../Assets/delete-icon.png';
+import Resume from '../Assets/resume-icon.png';
 import './ScheduleJobList.css'
-import {deleteScheduledJob} from  '../Services/services'
+import { Button , ButtonGroup} from 'react-bootstrap';
+import {deleteScheduledJob, startJob} from  '../Services/services'
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
     "Job Next Fired Time", "Action", "Status"];
 
 function ScheduleJobList(props) {
 
-    const [status, setStatus] = React.useState("Scheduled");
-
+  
+    const itemsRef=useRef([]);
     const data = props.scheduledJobsData;
+
+    useEffect((index) => {
+        itemsRef.current = itemsRef.current.slice(0, data.length); 
+    }, [data]);
+
+    const switchImage=(index,item)=>{
+     
+        console.log(itemsRef.current[index]);
+        
+        if(item.status==="Stopped")
+            itemsRef.current[index].setAttribute('src',Resume);
+        else
+            itemsRef.current[index].setAttribute('src',Stop);
+    }
     
-    const startJob = (index) => {
-        setStatus("Running")
+    const requestAction=()=>{
+
     }
 
     const stopJob = (index) => {
@@ -30,7 +46,7 @@ function ScheduleJobList(props) {
             country:scheduledJob.country,
             cronExpression:scheduledJob.cronExpression
         }
-        
+    
         deleteJobRequest(index,jsondata);
     }
 
@@ -42,7 +58,7 @@ function ScheduleJobList(props) {
             props.deleteScheduledJobs(index);
     }
 
-
+  
     return (
         <div className="scheduletable">
 
@@ -56,22 +72,34 @@ function ScheduleJobList(props) {
                     </tr>
                 </thead>
                 <tbody>
+               
                     {data.map((item, index) => {
-                        return (
+                        return (  
                             <tr>
                                 <td>{item.jobName}</td>
                                 <td>{item.country}</td>
                                 <td>{item.cronExpression}</td>
                                 <td>{item.lastScheduledTime}</td>
                                 <td>{item.nextScheduledTime}</td>
-                            
-
-                                <td><img className="actionIcons" src={Start} 
-                                        onClick={() => startJob(index)} alt="Not found" />
-                                    <img className="actionIcons" src={Stop} onClick={()=>stopJob(index)} alt="Not found" />{' '}{' '}{' '}{' '}
-                                    <img className="actionIcons" src={Delete} 
-                                        onClick={() => deleteJob(index,item)} alt="Not found" /></td>
-
+                                <td>
+                                    <ButtonGroup size="sm">
+                                        <Button variant="outline-dark"><img className="actionIcons" src={Start} 
+                                            alt="Not found"/>
+                                        </Button>
+                                    
+                                       <Button variant="outline-dark" onClick={()=>{requestAction(); switchImage(index,item)}}>
+                                    
+                                           <img className="actionIcons" key={index}
+                                           ref={el => itemsRef.current[index] = el} src={item.status==="Scheduled"?Stop:Resume}
+                                            alt="Not found" /></Button>
+                                        
+                                        <Button variant="outline-dark" >  
+                                            <img className="actionIcons" src={Delete} 
+                                            onClick={() => deleteJob(index,item)} alt="Not found" />
+                                        </Button>
+                                    </ButtonGroup>
+                                    
+                                </td>
                                 <td>{item.status}</td>
                             </tr>
                         );

@@ -19,13 +19,15 @@ export default function JobSchedulerForm(props) {
 
    
     const onSubmit = data => {
+        
+        let str=value.value;
+        let cronExpression = str.substring(0, str.length-1);
+      
         let jsondata = {
             jobName:data.jobname,
             country:data.country,
-            cronExpression:value.value
+            cronExpression:cronExpression
         }
-
-       
         scheduleJobRequest(jsondata);
 
     };    
