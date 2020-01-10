@@ -4,47 +4,39 @@ import Start from '../Assets/start-icon.png';
 import Stop from '../Assets/stop-icon.png';
 import Delete from '../Assets/delete-icon.png';
 import './ScheduleJobList.css'
-import {deleteScheduledJob} from  '../Services/services'
+import {deleteScheduledJob} from '../Services/services'
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
     "Job Next Fired Time", "Action", "Status"];
 
 function ScheduleJobList(props) {
 
-    const [status, setStatus] = React.useState("Scheduled");
 
     const data = props.scheduledJobsData;
     
     const startJob = (index) => {
-        setStatus("Running")
+        props.startScheduledJob(index);
     }
-
-    const stopJob = (index) => {
-        props.stopScheduledJobs(index);
+    const stopJob = (index) =>{
+        props.stopScheduledJobs(index)
     }
-
-    const deleteJob = (index,scheduledJob) => {
-
-        let jsondata = {
-            jobName:scheduledJob.jobName,
-            country:scheduledJob.country,
-            cronExpression:scheduledJob.cronExpression
-        }
-        
-        deleteJobRequest(index,jsondata);
+    
+    const deleteJob = (jobKey) => {
+        console.log(jobKey);
+        deleteJobRequest(jobKey);
     }
-
-   const deleteJobRequest=async (index,jsondata)=>{
-        let response=await deleteScheduledJob(jsondata);
+ 
+    const deleteJobRequest=async (jobKey)=>{
+        let response=await deleteScheduledJob(jobKey);
         let {status}=response;
         console.log("deleted status res",status);
         if(status===200)
-            props.deleteScheduledJobs(index);
+            props.getScheduledJobs();
     }
-
 
     return (
         <div className="scheduletable">
+
 
             <Table bordered hover >
 
@@ -55,8 +47,10 @@ function ScheduleJobList(props) {
                         })}
                     </tr>
                 </thead>
+                
                 <tbody>
-                    {data.map((item, index) => {
+                    {
+                    data.map((item, index) => {
                         return (
                             <tr>
                                 <td>{item.jobName}</td>
@@ -65,13 +59,9 @@ function ScheduleJobList(props) {
                                 <td>{item.lastScheduledTime}</td>
                                 <td>{item.nextScheduledTime}</td>
                             
-
-                                <td><img className="actionIcons" src={Start} 
-                                        onClick={() => startJob(index)} alt="Not found" />
-                                    <img className="actionIcons" src={Stop} onClick={()=>stopJob(index)} alt="Not found" />{' '}{' '}{' '}{' '}
-                                    <img className="actionIcons" src={Delete} 
-                                        onClick={() => deleteJob(index,item)} alt="Not found" /></td>
-
+                                <td><img className="actionIcons" src={Start} onClick={() => startJob(index)} alt="Not found" />
+                                    <img className="actionIcons" src={Stop} alt="Not found"  onClick ={() => stopJob(index)}/>
+                                    <img className="actionIcons" src={Delete} onClick={() => deleteJob(item.jobKey)} alt="Not found" /></td>
                                 <td>{item.status}</td>
                             </tr>
                         );
