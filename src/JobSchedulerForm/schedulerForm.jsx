@@ -19,6 +19,7 @@ export default function JobSchedulerForm(props) {
 
     const onSubmit = data => {
 
+
         let str = value.value;
         props.setCronExpression(str);
 
@@ -50,14 +51,17 @@ export default function JobSchedulerForm(props) {
                     <Form.Control name="jobname" ref={register({ required: true })} value={props.jobName} readOnly>
                     </Form.Control>
                 </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
+                <Col sm={2}>
                 <Form.Label column sm={2}><b>Country</b></Form.Label>
+                </Col>
                 <Col sm={4}>
-                    <Form.Control as="select" size="sm" name="country" ref={register({ required: true })}>
-                        <option value="UK">UK</option>
-                        <option value="India">India</option>
-                    </Form.Control>
+
+                <Form.Control as="select"  size="sm" name="country" ref={register({required:true})}>
+                    <option value="UK">UK</option>
+                    <option value="US">US</option>
+                    <option value="India">India</option>
+                </Form.Control>
+
                 </Col>
             </Form.Group>
 
@@ -76,7 +80,7 @@ export default function JobSchedulerForm(props) {
 
 
             <div className="text-center">
-                <Button className="submitButton" variant="primary" type="submit">
+                <Button className="submitButton" variant="primary" type="submit" onClick={props.hideProps}>
                     Submit
             </Button>
             </div>

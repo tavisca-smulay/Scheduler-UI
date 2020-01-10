@@ -1,7 +1,8 @@
 
 import axios from 'axios';
 
-const serverUrl="http://172.16.5.195:8888"
+const serverUrl="http://172.16.5.190:8888"
+//const serverUrl="https://my-json-server.typicode.com/tavisca-vmandal/scheduled-jobs"
 
 export const  getJobs =async () =>{
         let url = serverUrl + "/job-configs"
@@ -9,14 +10,16 @@ export const  getJobs =async () =>{
 }
 
 export const getScheduledJobs =async () =>{
-        let url = serverUrl + "/scheduled-jobs"
+       let url = serverUrl + "/scheduled-jobs"
+        //let url = serverUrl + "/scheduleJobs"
         return await axios.get(url);
 }
 
 
  export const postScheduleJob =async (jsonData) => {
         let url = serverUrl + "/schedule-job"
-        return await axios.post(url,  jsonData );
+        return  await axios.post(url,  jsonData );
+      
   };
 
   export const startJob = async(jsonData) =>{

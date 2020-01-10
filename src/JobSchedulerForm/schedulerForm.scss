@@ -1,6 +1,6 @@
 .schedulerForm{
     margin:auto;
-    padding-top: 5%;
+    padding-top: 2%;
     
 }
 .submitButton{
@@ -13,7 +13,7 @@ div .cron_builder{
     width: 90% ;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 2%;
+    margin-bottom: auto;
     padding: 3px;
     border: 0px;
     background-color: white;
@@ -23,8 +23,8 @@ div .cron_builder{
 
         .tab-pane{
             .well{
-                margin: 10px;
-                padding: 10px;
+                margin: 5px;
+                padding: 5px;
                 width: max-content;   
                 
                 .col-md-offset-2{

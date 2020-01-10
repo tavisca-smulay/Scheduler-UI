@@ -1,29 +1,55 @@
-import React from 'react'
+import React, { useState, useRef,useEffect }  from 'react'
 import Table from 'react-bootstrap/Table'
 import Start from '../Assets/start-icon.png';
 import Stop from '../Assets/stop-icon.png';
 import Delete from '../Assets/delete-icon.png';
+import Resume from '../Assets/resume-icon.png';
 import './ScheduleJobList.css'
-import {deleteScheduledJob} from '../Services/services'
+
+import { Button , ButtonGroup} from 'react-bootstrap';
+import {deleteScheduledJob, startJob} from  '../Services/services'
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
-    "Job Next Fired Time", "Action", "Status"];
+    "Job Next Fire Time", "Action", "Status"];
 
 function ScheduleJobList(props) {
 
+  
+    const itemsRef=useRef([]);
 
     const data = props.scheduledJobsData;
+
+    useEffect((index) => {
+        itemsRef.current = itemsRef.current.slice(0, data.length); 
+    }, [data]);
+
+    const switchImage=(index,item)=>{
+     
+        console.log(itemsRef.current[index]);
+        
+        if(item.status==="Stopped")
+            itemsRef.current[index].setAttribute('src',Resume);
+        else
+            itemsRef.current[index].setAttribute('src',Stop);
+    }
     
+
     const startJob = (index) => {
         props.startScheduledJob(index);
+      
+    const requestAction=()=>{
+
+
     }
     const stopJob = (index) =>{
         props.stopScheduledJobs(index)
     }
+
     
     const deleteJob = (jobKey) => {
         console.log(jobKey);
         deleteJobRequest(jobKey);
+
     }
  
     const deleteJobRequest=async (jobKey)=>{
@@ -49,19 +75,38 @@ function ScheduleJobList(props) {
                 </thead>
                 
                 <tbody>
+
                     {
                     data.map((item, index) => {
                         return (
+
                             <tr>
                                 <td>{item.jobName}</td>
                                 <td>{item.country}</td>
                                 <td>{item.cronExpression}</td>
                                 <td>{item.lastScheduledTime}</td>
                                 <td>{item.nextScheduledTime}</td>
-                            
-                                <td><img className="actionIcons" src={Start} onClick={() => startJob(index)} alt="Not found" />
-                                    <img className="actionIcons" src={Stop} alt="Not found"  onClick ={() => stopJob(index)}/>
-                                    <img className="actionIcons" src={Delete} onClick={() => deleteJob(item.jobKey)} alt="Not found" /></td>
+
+                                <td>
+                                    <ButtonGroup size="sm">
+                                        <Button variant="outline-dark"><img className="actionIcons" src={Start} onClick={() => startJob(index)} 
+                                            alt="Not found"/>
+                                        </Button>
+                                    
+                                       <Button variant="outline-dark" onClick={()=>{requestAction(); switchImage(index,item)}}>
+                                    
+                                           <img className="actionIcons" key={index}
+                                           ref={el => itemsRef.current[index] = el} src={item.status==="Scheduled"?Stop:Resume}
+                                            alt="Not found" /></Button>
+                                        
+                                        <Button variant="outline-dark" >  
+                                            <img className="actionIcons" src={Delete} 
+                                            onClick={() => deleteJob(item.jobKey)} alt="Not found" />
+                                        </Button>
+                                    </ButtonGroup>
+                                    
+                                </td>
+
                                 <td>{item.status}</td>
                             </tr>
                         );

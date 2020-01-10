@@ -4,6 +4,7 @@ import SchedulerForm from "../JobSchedulerForm/schedulerForm";
 import "./JobsTable.css";
 
 function ShowForm(props) {
+
   return (
     <Modal
       {...props}
@@ -21,13 +22,10 @@ function ShowForm(props) {
           getScheduledJobs={props.getScheduledJobs}
           setScheduledJobsData={props.setScheduledJobsData}
           setCronExpression = {props.setCronExpression}
+    hideProps={props.onHide}
         />
       </Modal.Body>
-      <Modal.Footer>
-        <Button className="button" onClick={props.onHide}>
-          Close
-        </Button>
-      </Modal.Footer>
+      
     </Modal>
   );
 }

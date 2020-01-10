@@ -4,8 +4,10 @@ import ScheduleJobList from '../ScheduleJobList/ScheduleJobList'
 import Header from '../Header/Header'
 import { getJobs, getScheduledJobs, stopJob, startJob} from '../Services/services'
 
+
 class Scheduler extends Component {
 
+  
     constructor(props) {
         super(props);
         this.state = {
@@ -23,7 +25,6 @@ class Scheduler extends Component {
         console.log("Inside update");
         this.setState({cronExpression: data})
     }
-
     startScheduledJob = (index) => {
         let jsonData = {
             jobName: this.state.scheduledJobs[index].jobName,
@@ -43,28 +44,31 @@ class Scheduler extends Component {
         })
        }
 
+
     stopScheduledJobsData = (index) => {
         let jsonData = {
             jobName: this.state.scheduledJobs[index].jobName,
             country: this.state.scheduledJobs[index].country,
             cronExpression: this.state.scheduledJobs[index].cronExpression
-        }
-        console.log("Stop Json",jsonData)
+        };
+
         stopJob(jsonData)
-        .then(response => {
-        let jobArray = this.state.scheduledJobs;
-        console.log(response.data);
-        jobArray[index].status = response.data;
-            this.setState({
-                scheduledJobs: jobArray
-            });
-        })
+            .then(response => {
+                let jobArray = this.state.scheduledJobs;
+                jobArray[index].status = response.data;
+                this.setState({
+                    scheduledJobs: jobArray
+                });
+            })
+
     }
 
 
     componentDidMount() {
         this.getAllJobs();
         this.getScheduledJobs();
+
+
     }
 
     getAllJobs = async () => {
