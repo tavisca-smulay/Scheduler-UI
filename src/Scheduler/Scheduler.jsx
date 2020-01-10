@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import JobsTable from '../JobsList/JobsTable'
 import ScheduleJobList from '../ScheduleJobList/ScheduleJobList'
 import Header from '../Header/Header'
-import { getJobs, getScheduledJobs, stopJob } from '../Services/services'
+import { getJobs, getScheduledJobs, stopJob, startJob} from '../Services/services'
 
 
 class Scheduler extends Component {
@@ -13,30 +13,37 @@ class Scheduler extends Component {
         this.state = {
             jobsList: [],
             scheduledJobs: [],
+            cronExpression : ""
         };
-        this.updateScheduledJobsData = this.updateScheduledJobsData.bind(this);
-        this.deleteScheduledJobsData = this.deleteScheduledJobsData.bind(this);
+        this.startScheduledJob = this.startScheduledJob.bind(this);
         this.stopScheduledJobsData = this.stopScheduledJobsData.bind(this);
-        
+        this.updateCronExpression = this.updateCronExpression.bind(this);
     }
 
 
-    updateScheduledJobsData = data => {
-
-        var myArray = this.state.scheduledJobs.slice();
-        myArray.push(data);
-        this.setState({ scheduledJobs: myArray });
-
+    updateCronExpression = data =>{
+        console.log("Inside update");
+        this.setState({cronExpression: data})
     }
+    startScheduledJob = (index) => {
+        let jsonData = {
+            jobName: this.state.scheduledJobs[index].jobName,
+            country: this.state.scheduledJobs[index].country,
+            cronExpression: this.state.scheduledJobs[index].cronExpression
+        }
+        console.log("Start JSonData ",jsonData);
 
-    deleteScheduledJobsData = (index) => {
+        startJob(jsonData)
+        .then(response => {
+            let jobArray = this.state.scheduledJobs;
+            console.log(response.data);
+            jobArray[index].status = response.data;
+            this.setState({
+                scheduledJobs: jobArray
+            });
+        })
+       }
 
-        
-        const data = this.state.scheduledJobs;
-             this.setState({
-            scheduledJobs: [...data.slice(0, index), ...data.slice(index + 1)]
-        });
-    }
 
     stopScheduledJobsData = (index) => {
         let jsonData = {
@@ -53,12 +60,14 @@ class Scheduler extends Component {
                     scheduledJobs: jobArray
                 });
             })
+
     }
 
 
     componentDidMount() {
         this.getAllJobs();
         this.getScheduledJobs();
+
 
     }
 
@@ -71,32 +80,28 @@ class Scheduler extends Component {
     getScheduledJobs = async () => {
         let res = await getScheduledJobs()
         let { data } = res;
+        console.log(data);
         this.setState({ scheduledJobs: data })
-        // console.log("In Scheduler",this.state.scheduledJobs)
     }
 
 
     render() {
         let { scheduledJobs, jobsList } = this.state;
-
-        if (this.state.scheduledJobs.length > 0) {
-            return (
-                <>
-                    <Header />
-                    <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
-                    <ScheduleJobList scheduledJobsData={scheduledJobs} deleteScheduledJobs={this.deleteScheduledJobsData}
-                         stopScheduledJobs={this.stopScheduledJobsData}
-                          />
-                </>
-            )
-        }
         return (
             <>
-                <Header />
-                <JobsTable jobsData={this.state.jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
+            <Header />
+            <JobsTable jobsData={jobsList} 
+            setCronExpression={this.updateCronExpression} 
+            getScheduledJobs={this.getScheduledJobs}/>
 
+            <ScheduleJobList scheduledJobsData={scheduledJobs} 
+            getScheduledJobs={this.getScheduledJobs}
+            stopScheduledJobs={this.stopScheduledJobsData}
+            startScheduledJob = {this.startScheduledJob}
+            cronExpression = {this.state.cronExpression} />
             </>
         )
+
     }
 }
 export default Scheduler;
