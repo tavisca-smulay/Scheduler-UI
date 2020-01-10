@@ -33,7 +33,7 @@ class Scheduler extends Component {
 
         
         const data = this.state.scheduledJobs;
-        this.setState({
+             this.setState({
             scheduledJobs: [...data.slice(0, index), ...data.slice(index + 1)]
         });
     }
@@ -49,9 +49,9 @@ class Scheduler extends Component {
             .then(response => {
                 let jobArray = this.state.scheduledJobs;
                 jobArray[index].status = response.data;
-                    this.setState({
-                        scheduledJobs: jobArray
-           });
+                this.setState({
+                    scheduledJobs: jobArray
+                });
             })
     }
 
@@ -59,7 +59,7 @@ class Scheduler extends Component {
     componentDidMount() {
         this.getAllJobs();
         this.getScheduledJobs();
-     
+
     }
 
     getAllJobs = async () => {

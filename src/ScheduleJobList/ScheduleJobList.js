@@ -9,7 +9,7 @@ import { Button , ButtonGroup} from 'react-bootstrap';
 import {deleteScheduledJob, startJob} from  '../Services/services'
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
-    "Job Next Fired Time", "Action", "Status"];
+    "Job Next Fire Time", "Action", "Status"];
 
 function ScheduleJobList(props) {
 
@@ -46,7 +46,6 @@ function ScheduleJobList(props) {
             country:scheduledJob.country,
             cronExpression:scheduledJob.cronExpression
         }
-    
         deleteJobRequest(index,jsondata);
     }
 
