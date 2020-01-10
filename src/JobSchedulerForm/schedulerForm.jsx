@@ -33,8 +33,9 @@ export default function JobSchedulerForm(props) {
 
     const scheduleJobRequest= async (jsondata)=>{
         let response=await postScheduleJob(jsondata);
-        let {data}=response;
-        props.setScheduledJobsData(data);
+        let {data,status}=response;
+        if(status===202)
+            props.getScheduledJobs();
     }
 
     return(

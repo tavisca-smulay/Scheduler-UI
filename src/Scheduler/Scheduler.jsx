@@ -7,7 +7,6 @@ import { getJobs, getScheduledJobs, stopJob } from '../Services/services'
 
 class Scheduler extends Component {
 
-  
     constructor(props) {
         super(props);
         this.state = {
@@ -15,11 +14,8 @@ class Scheduler extends Component {
             scheduledJobs: [],
         };
         this.updateScheduledJobsData = this.updateScheduledJobsData.bind(this);
-        this.deleteScheduledJobsData = this.deleteScheduledJobsData.bind(this);
-        this.stopScheduledJobsData = this.stopScheduledJobsData.bind(this);
-        
+          
     }
-
 
     updateScheduledJobsData = data => {
 
@@ -29,39 +25,12 @@ class Scheduler extends Component {
 
     }
 
-    deleteScheduledJobsData = (index) => {
-
-        
-        const data = this.state.scheduledJobs;
-             this.setState({
-            scheduledJobs: [...data.slice(0, index), ...data.slice(index + 1)]
-        });
-    }
-
-    stopScheduledJobsData = (index) => {
-        let jsonData = {
-            jobName: this.state.scheduledJobs[index].jobName,
-            country: this.state.scheduledJobs[index].country,
-            cronExpression: this.state.scheduledJobs[index].cronExpression
-        };
-
-        stopJob(jsonData)
-            .then(response => {
-                let jobArray = this.state.scheduledJobs;
-                jobArray[index].status = response.data;
-                this.setState({
-                    scheduledJobs: jobArray
-                });
-            })
-    }
-
-
     componentDidMount() {
         this.getAllJobs();
         this.getScheduledJobs();
 
     }
-
+    
     getAllJobs = async () => {
         let res = await getJobs();
         let { data } = res;
@@ -72,7 +41,6 @@ class Scheduler extends Component {
         let res = await getScheduledJobs()
         let { data } = res;
         this.setState({ scheduledJobs: data })
-        // console.log("In Scheduler",this.state.scheduledJobs)
     }
 
 
@@ -83,17 +51,19 @@ class Scheduler extends Component {
             return (
                 <>
                     <Header />
-                    <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
-                    <ScheduleJobList scheduledJobsData={scheduledJobs} deleteScheduledJobs={this.deleteScheduledJobsData}
+                    <JobsTable jobsData={jobsList} setScheduledJobsData={this.updateScheduledJobsData} 
+                        getScheduledJobs={this.getScheduledJobs} />
+                    <ScheduleJobList scheduledJobsData={scheduledJobs}
                          stopScheduledJobs={this.stopScheduledJobsData}
-                          />
+                         getScheduledJobs={this.getScheduledJobs} />
                 </>
             )
         }
         return (
             <>
                 <Header />
-                <JobsTable jobsData={this.state.jobsList} setScheduledJobsData={this.updateScheduledJobsData} />
+                <JobsTable jobsData={this.state.jobsList} setScheduledJobsData={this.updateScheduledJobsData}
+                getScheduledJobs={this.getScheduledJobs}  />
 
             </>
         )
