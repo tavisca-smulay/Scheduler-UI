@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect }  from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Table from 'react-bootstrap/Table'
 import Start from '../Assets/start-icon.png';
 import Stop from '../Assets/stop-icon.png';
@@ -6,7 +6,8 @@ import Delete from '../Assets/delete-icon.png';
 import Resume from '../Assets/resume-icon.png';
 import './ScheduleJobList.css'
 
-import { Button , ButtonGroup} from 'react-bootstrap';
+
+import { Button, ButtonGroup, Card } from 'react-bootstrap';
 import {deleteScheduledJob, stopScheduledJob,resumeScheduledJob,startScheduledJob} from  '../Services/services'
 
 const headers = ["Job Name", "Country", "Job Schedule Time", "Job Last Fired Time",
@@ -26,10 +27,10 @@ function ScheduleJobList(props) {
       
         if(item.status==="PAUSED")
             itemsRef.current[index].setAttribute('src',Resume);
+
         else
-            itemsRef.current[index].setAttribute('src',Stop);
+            itemsRef.current[index].setAttribute('src', Stop);
     }
-    
 
     const requestAction=(item)=>{
 
@@ -59,6 +60,7 @@ function ScheduleJobList(props) {
        
     }
 
+
     const startJob =async (item) => {
         let response=await startScheduledJob(item.jobKey);
         let {status}=response;
@@ -67,44 +69,43 @@ function ScheduleJobList(props) {
             props.getScheduledJobs();
     }
 
-   const deleteJob=async (jobKey)=>{
-       console.log("jobkey",jobKey);
-
-        let response=await deleteScheduledJob(jobKey);
-        let {status}=response;
-        console.log("deleted status res",status);
-        if(status===200)
+    const deleteJobRequest = async (jobKey) => {
+        let response = await deleteScheduledJob(jobKey);
+        let { status } = response;
+        console.log("deleted status res", status);
+        if (status === 200)
             props.getScheduledJobs();
     }
 
-    return (
-        <div className="scheduletable">
+    if (data.length > 0) {
+        return (
+            <div className="scheduletable">
 
+                <Table bordered hover >
 
-            <Table bordered hover >
-                <thead>
-                    <tr>
-                        {headers.map((header, index) => {
-                            return <th key={index}>{header.toUpperCase()}</th>
-                        })}
-                    </tr>
-                </thead>
-                
-                <tbody>
+                    <thead>
+                        <tr>
+                            {headers.map((header, index) => {
+                                return <th key={index}>{header.toUpperCase()}</th>
+                            })}
+                        </tr>
+                    </thead>
 
-                    {
-                    data.map((item, index) => {
-                        return (
+                    <tbody>
 
-                            <tr>
-                                <td>{item.jobName}</td>
-                                <td>{item.country}</td>
-                                <td>{item.cronExpression}</td>
-                                <td>{item.lastScheduledTime}</td>
-                                <td>{item.nextScheduledTime}</td>
+                        {
+                            data.map((item, index) => {
+                                return (
 
-                                <td>
-                                    <ButtonGroup size="sm">
+                                    <tr>
+                                        <td>{item.jobName}</td>
+                                        <td>{item.country}</td>
+                                        <td>{item.cronExpression}</td>
+                                        <td>{item.lastScheduledTime}</td>
+                                        <td>{item.nextScheduledTime}</td>
+
+                                        <td>
+                                           <ButtonGroup size="sm">
 
                                         <Button variant="outline-dark" onClick={() => startJob(item.jobKey)}><img className="actionIcons" src={Start} 
                                             alt="Not found" />
@@ -123,17 +124,47 @@ function ScheduleJobList(props) {
 
                                         </Button>
                                     </ButtonGroup>
-                                    
-                                </td>
+                                        </td>
 
-                                <td>{item.status}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </Table>
-        </div>
-    )
+                                        <td>{item.status}</td>
+                                    </tr>
+                                );
+                            })}
+                    </tbody>
+                </Table>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="scheduletable">
+
+                <Table bordered hover >
+
+                    <thead>
+                        <tr>
+                            {headers.map((header, index) => {
+                                return <th key={index}>{header.toUpperCase()}</th>
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colSpan="7">
+                                <Card bg="light" border="info" className="card">
+                                    <Card.Body>
+                                        <Card.Text>
+                                            No Scheduled Jobs Currently
+                                            </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
+        )
+    }
 }
 
 export default ScheduleJobList
