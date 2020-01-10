@@ -69,7 +69,7 @@ function ScheduleJobList(props) {
             props.getScheduledJobs();
     }
 
-    const deleteJobRequest = async (jobKey) => {
+    const deleteJob = async (jobKey) => {
         let response = await deleteScheduledJob(jobKey);
         let { status } = response;
         console.log("deleted status res", status);
