@@ -19,16 +19,17 @@ export default function JobSchedulerForm(props) {
 
    
     const onSubmit = data => {
+        
+        let str=value.value;
+        let cronExpression = str.substring(0, str.length-1);
+      
         let jsondata = {
             jobName:data.jobname,
             country:data.country,
-            cronExpression:value.value
+            cronExpression:cronExpression
         }
-
-       
         scheduleJobRequest(jsondata);
-
-    };    
+    };  
 
     const scheduleJobRequest= async (jsondata)=>{
         let response=await postScheduleJob(jsondata);
@@ -44,12 +45,13 @@ export default function JobSchedulerForm(props) {
                     <Form.Control name = "jobname" ref={register({required:true})} value={props.jobName} readOnly>
                     </Form.Control>
                 </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
+                <Col sm={2}>
                 <Form.Label column sm={2}><b>Country</b></Form.Label>
+                </Col>
                 <Col sm={4}>
                 <Form.Control as="select"  size="sm" name="country" ref={register({required:true})}>
                     <option value="UK">UK</option>
+                    <option value="US">US</option>
                     <option value="India">India</option>
                 </Form.Control>
                 </Col>
@@ -70,7 +72,7 @@ export default function JobSchedulerForm(props) {
 
 
             <div className="text-center">
-                <Button className="submitButton" variant="primary" type="submit">
+                <Button className="submitButton" variant="primary" type="submit" onClick={props.hideProps}>
                     Submit
             </Button>
            </div>
