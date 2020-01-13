@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const serverUrl = "http://172.16.5.195:8888"
+const serverUrl = "http://172.16.5.186:8888"
 
 export const getJobs = async () => {
         let url = serverUrl + "/job-configs"
@@ -12,10 +12,9 @@ export const getScheduledJobs = async () => {
         return await axios.get(url);
 }
 
-export const postScheduleJob = async (jsonData) => {
+export const scheduleJob = async (jsonData) => {
         let url = serverUrl + "/schedule-job"
         return await axios.post(url, jsonData);
-
 }
 
 export const stopScheduledJob = async (jobKey) => {

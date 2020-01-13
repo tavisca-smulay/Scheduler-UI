@@ -1,0 +1,18 @@
+.table-header{
+    background-color: lightseagreen;
+} 
+
+.job-table-card {
+  margin-top:50px;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+}
+
+.button{
+    background-color: lightseagreen;
+    color: black;
+}
+

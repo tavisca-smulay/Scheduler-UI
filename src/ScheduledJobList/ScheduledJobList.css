@@ -1,0 +1,28 @@
+thead{
+    background-color: lightseagreen;
+}
+
+.refresh-button-parent{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.refresh-button{
+    color: black;
+    margin-top: 10px;
+}
+
+.schedule-table-card {
+    position: relative;
+    margin: 20px;
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.actionIcons{
+    padding:5px;
+    margin:5px;
+}
+

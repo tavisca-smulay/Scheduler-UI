@@ -1,46 +1,42 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form } from 'react-bootstrap';
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import './schedulerForm.scss';
+import { Form, Row, Col, Button } from 'react-bootstrap';
+import './SchedulerForm.scss';
 import Cron from 'react-cron-generator'
 import 'react-cron-generator/dist/cron-builder.css'
-import { postScheduleJob } from '../Services/services'
+import { scheduleJob } from '../Services/services'
 
 
-export default function JobSchedulerForm(props) {
+export default function SchedulerForm(props) {
 
     const { register, handleSubmit } = useForm();
 
-    const [value, setValue] = React.useState();
+    const [cronValue, setCronValue] = React.useState();
 
     const onSubmit = data => {
 
-        let str = value.value;
-        props.setCronExpression(str);
+        let cronExpression = cronValue.cronValue;
 
-        let cronExpression = str.substring(0, str.length - 1);
+        let formattedCronExpression = cronExpression.substring(0, cronExpression.length - 1);
 
         let jsondata = {
             jobName: data.jobname,
             country: data.country,
-            cronExpression: cronExpression
+            cronExpression: formattedCronExpression
         }
         scheduleJobRequest(jsondata);
     }
 
     const scheduleJobRequest = async (jsondata) => {
-        let response = await postScheduleJob(jsondata);
+        let response = await scheduleJob(jsondata);
         if (response.status === 202) {
             props.getScheduledJobs();
         }
     }
 
     return (
-        <form className="schedulerForm" onSubmit={handleSubmit(onSubmit)}>
+        <form className="scheduler-form" onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Row}>
                 <Form.Label column sm={2}><b>Job Name</b></Form.Label>
                 <Col sm={4}>
@@ -67,15 +63,15 @@ export default function JobSchedulerForm(props) {
 
             <div className="cron_builder">
                 <Cron
-                    onChange={(e) => { setValue({ value: e }) }}
-                    value={value}
+                    onChange={(e) => { setCronValue({ cronValue: e }) }}
+                    value={cronValue}
                     showResultText={true}
                 />
             </div>
 
 
             <div className="text-center">
-                <Button className="submitButton" variant="primary" type="submit" onClick={props.hideProps}>
+                <Button className="submit-button" variant="secondary" type="submit" onClick={props.hideModal}>
                     Submit
             </Button>
             </div>
