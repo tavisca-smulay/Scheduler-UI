@@ -9,11 +9,11 @@ function JobsTable(props) {
     const [modalShow, setModalShow] = React.useState(false);
     const [jobName, setJobName] = React.useState("");
     const Jobs = props.jobsData;
-    
+
     return (
         <div className="table">
-            
-            <Table  bordered hover>
+
+            <Table bordered hover>
                 <tbody>
                     <tr>
                         {
@@ -35,11 +35,11 @@ function JobsTable(props) {
                     }
                 </tbody>
             </Table>
-            <ShowForm 
-                setCronExpression = {props.setCronExpression}
-                setScheduledJobsData = {props.setScheduledJobsData}
+            <ShowForm
+                setCronExpression={props.setCronExpression}
+                setScheduledJobsData={props.setScheduledJobsData}
 
-                getScheduledJobs={props.getScheduledJobs} 
+                getScheduledJobs={props.getScheduledJobs}
 
                 name={jobName}
                 show={modalShow}

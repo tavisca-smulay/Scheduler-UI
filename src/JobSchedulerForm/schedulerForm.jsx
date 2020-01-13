@@ -19,7 +19,6 @@ export default function JobSchedulerForm(props) {
 
     const onSubmit = data => {
 
-
         let str = value.value;
         props.setCronExpression(str);
 
@@ -30,16 +29,14 @@ export default function JobSchedulerForm(props) {
             country: data.country,
             cronExpression: cronExpression
         }
-        console.log("My json data", jsondata)
         scheduleJobRequest(jsondata);
-    }   
+    }
 
     const scheduleJobRequest = async (jsondata) => {
         let response = await postScheduleJob(jsondata);
-        console.log(response);
         if (response.status === 202) {
             props.getScheduledJobs();
-        }    
+        }
     }
 
     return (
@@ -51,15 +48,15 @@ export default function JobSchedulerForm(props) {
                     </Form.Control>
                 </Col>
                 <Col sm={2}>
-                <Form.Label column sm={2}><b>Country</b></Form.Label>
+                    <Form.Label column sm={2}><b>Country</b></Form.Label>
                 </Col>
                 <Col sm={4}>
 
-                <Form.Control as="select"  size="sm" name="country" ref={register({required:true})}>
-                    <option value="UK">UK</option>
-                    <option value="US">US</option>
-                    <option value="India">India</option>
-                </Form.Control>
+                    <Form.Control as="select" size="sm" name="country" ref={register({ required: true })}>
+                        <option value="UK">UK</option>
+                        <option value="US">US</option>
+                        <option value="India">India</option>
+                    </Form.Control>
 
                 </Col>
             </Form.Group>
@@ -73,7 +70,6 @@ export default function JobSchedulerForm(props) {
                     onChange={(e) => { setValue({ value: e }) }}
                     value={value}
                     showResultText={true}
-                //  showResultCron={true}
                 />
             </div>
 

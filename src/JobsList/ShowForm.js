@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import SchedulerForm from "../JobSchedulerForm/schedulerForm";
 import "./JobsTable.css";
 
@@ -21,11 +21,11 @@ function ShowForm(props) {
           jobName={props.name}
           getScheduledJobs={props.getScheduledJobs}
           setScheduledJobsData={props.setScheduledJobsData}
-          setCronExpression = {props.setCronExpression}
-    hideProps={props.onHide}
+          setCronExpression={props.setCronExpression}
+          hideProps={props.onHide}
         />
       </Modal.Body>
-      
+
     </Modal>
   );
 }
