@@ -3,28 +3,24 @@ import React, { Component } from 'react'
 import JobsTable from '../JobsList/JobsTable'
 import ScheduleJobList from '../ScheduleJobList/ScheduleJobList'
 import Header from '../Header/Header'
-import { getJobs, getScheduledJobs, stopJob, startJob} from '../Services/services'
-
+import { getJobs, getScheduledJobs } from '../Services/services'
 
 class Scheduler extends Component {
-
-  
     constructor(props) {
         super(props);
         this.state = {
             jobsList: [],
             scheduledJobs: [],
-            cronExpression : ""
+            cronExpression: ""
         };
         this.updateCronExpression = this.updateCronExpression.bind(this);
     }
 
 
-    updateCronExpression = data =>{
-        console.log("Inside update");
-        this.setState({cronExpression: data})
+    updateCronExpression = data => {
+        this.setState({ cronExpression: data })
     }
-    
+
     componentDidMount() {
         this.getAllJobs();
         this.getScheduledJobs();
@@ -41,7 +37,6 @@ class Scheduler extends Component {
     getScheduledJobs = async () => {
         let res = await getScheduledJobs()
         let { data } = res;
-        console.log(data);
         this.setState({ scheduledJobs: data })
     }
 
@@ -50,14 +45,14 @@ class Scheduler extends Component {
         let { scheduledJobs, jobsList } = this.state;
         return (
             <>
-            <Header />
-            <JobsTable jobsData={jobsList} 
-            setCronExpression={this.updateCronExpression} 
-            getScheduledJobs={this.getScheduledJobs}/>
+                <Header />
+                <JobsTable jobsData={jobsList}
+                    setCronExpression={this.updateCronExpression}
+                    getScheduledJobs={this.getScheduledJobs} />
 
-            <ScheduleJobList scheduledJobsData={scheduledJobs} 
-            getScheduledJobs={this.getScheduledJobs}
-           cronExpression = {this.state.cronExpression} />
+                <ScheduleJobList scheduledJobsData={scheduledJobs}
+                    getScheduledJobs={this.getScheduledJobs}
+                    cronExpression={this.state.cronExpression} />
             </>
         )
 
